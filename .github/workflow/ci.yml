@@ -1,0 +1,39 @@
+# 工作流名称，不设置的话默认取配置文件名
+name: Build and Deploy
+# 指定触发 workflow 的条件，当前是 push 事件 
+on: [push]
+# 工作流执行的一个或多个任务
+jobs:
+  # 任务名称
+  build-and-deploy:
+    # 任务运行的容器类型（虚拟机环境）
+    runs-on: ubuntu-latest
+    # 任务执行的步骤
+    steps:
+      # 步骤名称
+      - name: Checkout 🛎️
+        # 使用的操作 actions，可以使用公共仓库，本地仓库，别人的仓库的action
+        # 拉取代码
+        uses: actions/checkout@v2.3.1 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        # 输入参数
+        with:
+          persist-credentials: false
+
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        # 使用操作系统 shell ，在根目录运行的命令行程序
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy 🚀
+        # 构建发布 Github pages
+        uses: JamesIves/github-pages-deploy-action@3.5.9
+        with:
+          # 设置项目中设置的token - secrets.[name]
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+          # 指定部署的分支，默认是 gh-pages 分支
+          BRANCH: gh-pages # The branch the action should deploy to.
+          # 存储库中要部署的文件夹。
+          # 也就是编译后的静态文件存放目录，Github Pages会访问这个目录的index.html文件（Vue CLI默认编译到 dist 目录）
+          # 如果您的构建脚本编译到名为build的目录中，则将其放在此处。 文件夹路径不能以/开头。 如果您希望部署根目录，则可以放置一个。
+          FOLDER: dist # The folder the action should deploy.

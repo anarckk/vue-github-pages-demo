@@ -32,8 +32,8 @@ jobs:
           # 指定部署的分支，默认是 gh-pages 分支
           BRANCH: gh-pages # The branch the action should deploy to.
           # 存储库中要部署的文件夹。
-          # 也就是编译后的静态文件存放目录，Github Pages会访问这个目录的index.html文件（Vue CLI默认编译到 dist 目录）
-          # 如果您的构建脚本编译到名为build的目录中，则将其放在此处。 文件夹路径不能以/开头。 如果您希望部署根目录，则可以放置一个。
+          # 该步骤会将项目中 FOLDER 指定文件夹下的文件推送到 BRANCH 分支，作为Github Pages 部署的内容。
+          # Vue CLI默认打包到 dist 目录
           FOLDER: dist # The folder the action should deploy.
-          # 如果需要构建脚本在推送之前编译代码，则可以在此处添加脚本
+          # 在向 BRANCH 分支推送代码前，可以指定构建脚本
           BUILD_SCRIPT: npm install && npm run build # The build script the action should run prior to deploying.

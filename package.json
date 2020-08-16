@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
-  "homepage": "https://363797271.github.io/vue-github-pages-demo",
+  "homepage": "https://363797271.github.io",
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^2.6.11"

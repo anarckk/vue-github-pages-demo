@@ -18,4 +18,3 @@ jobs:
         with:
           folder: dist
           BRANCH: gh-pages
-          FOLDER: dist
